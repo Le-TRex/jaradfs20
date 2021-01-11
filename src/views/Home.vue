@@ -7,6 +7,7 @@
 <script>
 // @ is an alias to /src
 import TicketsList from '@/components/Tickets/TicketsList.vue';
+import ticketsService from '@/services/tickets';
 
 export default {
   name: 'Home',
@@ -15,13 +16,14 @@ export default {
   },
   data(){
     return {
-      tickets : [
-        {
-          id : 1,
-          ticketNumber : 'n°1'
-        }
-      ]
+      tickets : []
     }
+  },
+  async beforeCreate(){
+    const tickets = await ticketsService.getTickets();
+    //this.tickets ==> array vide du return
+    //=tickets ==> les tickets obtenus grâce à getTickets()
+    this.tickets = tickets;
   }
 }
 </script>
